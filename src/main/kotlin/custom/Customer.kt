@@ -3,6 +3,7 @@ package custom
 import custom.hash.CustomHash
 import enums.Items
 import enums.PlayerState
+import org.openjdk.jmh.annotations.Benchmark
 
 import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.TimeUnit
@@ -45,8 +46,6 @@ class Customer(private val exchange: CustomHash<Items>, val name: String): Runna
     }
   }
 
-  @BenchmarkMode(Mode.AverageTime)
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
   private fun buy() {
     println("$name: Buying $quantity of $buying, $tries tries")
     if (tries < 4) {
@@ -78,8 +77,6 @@ class Customer(private val exchange: CustomHash<Items>, val name: String): Runna
     quantity = ThreadLocalRandom.current().nextInt(1, 11)
   }
 
-  @BenchmarkMode(Mode.AverageTime)
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
   private fun sell() {
     val item = getRandomItem()
     val quantity = getRandomQuantity(item)
@@ -121,8 +118,4 @@ fun main(args: Array<String>) {
   Thread(Customer(exchange, "Alex")).start()
   Thread(Customer(exchange, "Anthony")).start()
   Thread(Customer(exchange, "Mike")).start()
-//  while (true) {
-//    Thread.sleep(1000)
-//    println()
-//  }
 }

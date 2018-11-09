@@ -1,0 +1,2 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
+"test.Benchmark.init","thrpt",1,5,1366938052.817456,477802643.904194,"ops/s"
