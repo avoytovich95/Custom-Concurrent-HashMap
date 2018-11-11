@@ -29,7 +29,7 @@ class BuiltInCustomer(private val exchange: ConcurrentHashMap<Items, Int>, val n
   }
 
   override fun run() {
-    for (i in 0..1000) {
+    for (i in 0..runs) {
 
       when (state) {
         PlayerState.BUYING -> buy()

@@ -5,7 +5,7 @@ plugins {
     id "me.champeau.gradle.jmh" version "0.4.7"
 }
 
-mainClassName =  'main/BenchmarkRun'
+mainClassName =  'main/BenchmarkRunner'
 
 group 'Project-2'
 version '1.0-SNAPSHOT'

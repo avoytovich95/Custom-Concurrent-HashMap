@@ -6,20 +6,21 @@ import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
 import org.openjdk.jmh.runner.options.VerboseMode
 
-object BenchmarkRun {
+object BenchmarkRunner {
 
   @JvmStatic
   fun main(args: Array<String>) {
     val opts = OptionsBuilder()
-        .include(".*")
-        .verbosity(VerboseMode.EXTRA)
-        .resultFormat(ResultFormatType.CSV)
-        .build()
+      .include(".*")
+      .warmupIterations(1)
+      .measurementIterations(5)
+      .forks(1)
+      .verbosity(VerboseMode.EXTRA)
+      .resultFormat(ResultFormatType.CSV)
+      .build()
 
 
     Runner(opts).run()
-
-//    org.openjdk.jmh.Main.main(args)
   }
 
 }

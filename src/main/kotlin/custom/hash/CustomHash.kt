@@ -30,8 +30,117 @@ class CustomHash<K>{
       lock.unlock()
   }
 
+  private fun getHashIndex(k: K) = k.hashCode() % table.size
+
   private fun policy(): Boolean {
     return size / table.size > 2
+  }
+
+  fun contains(k: K): Boolean {
+    acquire(k)
+    try {
+      val i = getHashIndex(k)
+
+      if (table[i] == null)
+        return false
+      else {
+        var e = table[i]
+
+        while (true) {
+          when {
+            e!!.hash == k.hashCode() -> return true
+            e.next == null -> return false
+            else -> e = e.next
+          }
+        }
+      }
+    }finally {
+      release(k)
+    }
+  }
+
+  fun put (k: K, v: Int) {
+    acquire(k)
+    try {
+      val i = k!!.hashCode() % table.size
+
+      if (table[i] == null) {
+        table[i] = Entry(k, v, k.hashCode())
+        size++
+      } else {
+        var e = table[i]
+
+        while (true) {
+          if (e!!.hash == k.hashCode()) {
+            e.v = v
+            break
+          } else if (e.next == null) {
+            e.next = Entry(k, v, k.hashCode())
+            break
+          } else
+            e = e.next
+        }
+      }
+    } finally {
+      release(k)
+    }
+  }
+
+  fun get (k: K): Int? {
+    acquire(k)
+    try {
+      val i = k!!.hashCode() % table.size
+
+      if (table[i] == null)
+        return null
+      else {
+        var e = table[i]
+
+        while (true) {
+          when {
+            e!!.hash == k.hashCode() -> return e.v
+            e.next == null -> return null
+            else -> e = e.next
+          }
+        }
+      }
+    }finally {
+      release(k)
+    }
+  }
+
+  fun remove(k: K): Int? {
+    acquire(k)
+    try {
+      val i = k!!.hashCode() % table.size
+
+      if (table[i] == null)
+        return null
+      else {
+        var e = table[i]
+        var prev: Entry<K>? = null
+
+        while (true) {
+          when {
+            e!!.hash == k.hashCode() -> {
+              val v = e.v
+              if (prev == null)
+                table[i] = e.next
+              else
+                prev.next = e.next
+              return v
+            }
+            e.next == null -> return null
+            else -> {
+              prev = e
+              e = e.next
+            }
+          }
+        }
+      }
+    }finally {
+      release(k)
+    }
   }
 
   fun increment(k: K, v: Int) {
