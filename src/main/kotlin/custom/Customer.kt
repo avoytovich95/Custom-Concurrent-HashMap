@@ -36,7 +36,7 @@ class Customer(private val exchange: CustomHash<Items>, val name: String): Runna
   }
 
   override fun run() {
-    for (i in 0..10000) {
+    for (i in 0..runs) {
 
       when (state) {
         PlayerState.BUYING -> buy()

@@ -1,10 +1,10 @@
 package main
 
-import org.openjdk.jmh.annotations.Benchmark
+import org.openjdk.jmh.annotations.Mode
 import org.openjdk.jmh.results.format.ResultFormatType
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
-import org.openjdk.jmh.runner.options.VerboseMode
+import java.util.concurrent.TimeUnit
 
 object BenchmarkRunner {
 
@@ -12,11 +12,14 @@ object BenchmarkRunner {
   fun main(args: Array<String>) {
     val opts = OptionsBuilder()
       .include(".*")
-      .warmupIterations(1)
-      .measurementIterations(5)
+      .warmupIterations(5)
+      .measurementIterations(15)
       .forks(1)
-      .verbosity(VerboseMode.EXTRA)
       .resultFormat(ResultFormatType.CSV)
+      .mode(Mode.Throughput)
+      .mode(Mode.AverageTime)
+      .threads(32)
+      .timeUnit(TimeUnit.MILLISECONDS)
       .build()
 
 

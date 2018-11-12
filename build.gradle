@@ -39,7 +39,7 @@ compileTestKotlin {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'main.BenchmarkRun'
+        attributes 'Main-Class': 'main.BenchmarkRunner'
     }
     from configurations.runtime.collect { zipTree(it) }
 }

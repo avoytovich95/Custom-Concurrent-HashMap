@@ -6,11 +6,10 @@ import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 public class BuiltInBenchmarks {
 
-  @State(Scope.Thread)
+  @State(Scope.Benchmark)
   public static class Hash {
     ConcurrentHashMap<Items, Integer> hash = new ConcurrentHashMap<Items, Integer>();
     Items[] items = Items.values();
@@ -18,9 +17,6 @@ public class BuiltInBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testPut(Hash hash) {
     hash.hash.put(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)],
@@ -29,9 +25,6 @@ public class BuiltInBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testGet(Hash hash, Blackhole bh) {
     Object x = hash.hash.get(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)]
@@ -40,9 +33,6 @@ public class BuiltInBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testContains(Hash hash, Blackhole bh) {
     Boolean x = hash.hash.contains(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)]
@@ -51,9 +41,6 @@ public class BuiltInBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testRemove(Hash hash, Blackhole bh) {
     Object x = hash.hash.remove(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)]
@@ -62,9 +49,6 @@ public class BuiltInBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testIncrement(Hash hash) {
     hash.hash.merge(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)],
@@ -74,9 +58,6 @@ public class BuiltInBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testDecrement(Hash hash) {
     hash.hash.computeIfPresent(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)],

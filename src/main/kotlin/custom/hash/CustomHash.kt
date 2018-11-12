@@ -30,7 +30,7 @@ class CustomHash<K>{
       lock.unlock()
   }
 
-  private fun getHashIndex(k: K) = k.hashCode() % table.size
+  private fun getHashIndex(k: K) = (k.hashCode() shr 4) % table.size
 
   private fun policy(): Boolean {
     return size / table.size > 2
@@ -65,8 +65,8 @@ class CustomHash<K>{
       val i = k!!.hashCode() % table.size
 
       if (table[i] == null) {
-        table[i] = Entry(k, v, k.hashCode())
         size++
+        table[i] = Entry(k, v, k.hashCode())
       } else {
         var e = table[i]
 
@@ -75,6 +75,7 @@ class CustomHash<K>{
             e.v = v
             break
           } else if (e.next == null) {
+            size++
             e.next = Entry(k, v, k.hashCode())
             break
           } else
@@ -123,6 +124,7 @@ class CustomHash<K>{
         while (true) {
           when {
             e!!.hash == k.hashCode() -> {
+              size--
               val v = e.v
               if (prev == null)
                 table[i] = e.next
@@ -132,6 +134,7 @@ class CustomHash<K>{
             }
             e.next == null -> return null
             else -> {
+              size--
               prev = e
               e = e.next
             }
@@ -275,19 +278,27 @@ fun main(args: Array<String>) {
   val map = ConcurrentHashMap<Items, Int>()
 
   for (i in Items.values()) {
-    myMap.increment(i, 4)
-    map.merge(i, 4, Integer::sum)
+//    myMap.increment(i, 4)
+//    map.merge(i, 4, Integer::sum)
+    myMap.put(i, 4)
+    map[i] = 4
   }
 
   println("My Map:\n $myMap")
   println("Built in:\n $map")
 
+  println("My Map size: ${myMap.size}")
+  println("Built in size: ${map.size}")
+
   for (i in Items.values()) {
-    myMap.decrement(i, 4)
+    myMap.remove(i)
     map.remove(i)
   }
 
   println("My empty Map:\n $myMap")
   println("Built in empty:\n $map")
+
+  println("My Map size: ${myMap.size}")
+  println("Built in size: ${map.size}")
 
 }

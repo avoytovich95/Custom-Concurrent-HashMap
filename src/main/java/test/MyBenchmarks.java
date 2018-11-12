@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MyBenchmarks {
 
-  @State(Scope.Thread)
+  @State(Scope.Benchmark)
   public static class MyHash {
     CustomHash<Items> myHash = new CustomHash<Items>();
     Items[] items = Items.values();
@@ -20,9 +20,6 @@ public class MyBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testPut(MyHash hash) {
     hash.myHash.put(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)],
@@ -31,9 +28,6 @@ public class MyBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testGet(MyHash hash, Blackhole bh) {
     Integer x = hash.myHash.get(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)]
@@ -42,9 +36,6 @@ public class MyBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testContains(MyHash hash, Blackhole bh) {
     Boolean x = hash.myHash.contains(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)]
@@ -53,9 +44,6 @@ public class MyBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testRemove(MyHash hash, Blackhole bh) {
     Integer x = hash.myHash.remove(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)]
@@ -64,9 +52,6 @@ public class MyBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testIncrement(MyHash hash) {
     hash.myHash.increment(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)],
@@ -75,9 +60,6 @@ public class MyBenchmarks {
   }
 
   @Benchmark
-  @BenchmarkMode({Mode.Throughput, Mode.AverageTime})
-  @OutputTimeUnit(TimeUnit.MILLISECONDS)
-  @Threads(16)
   public void testDecrement(MyHash hash, Blackhole bh) {
     Integer x = hash.myHash.decrement(
         hash.items[ThreadLocalRandom.current().nextInt(0, hash.elements)],
