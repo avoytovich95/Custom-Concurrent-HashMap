@@ -9,7 +9,7 @@ class BuiltInCustomerRunner {
   val hash = ConcurrentHashMap<Items, Int>()
 
   var name = 0
-  val customers = Array(16) { BuiltInCustomer(hash, name++.toString()) }
+  val customers = Array(32) { BuiltInCustomer(hash, name++.toString()) }
 
   fun run() {
     for (customer in customers) {

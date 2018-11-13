@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Simulations</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="red darken-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">
+      <div class="white-text">
+        <i class="material-icons">offline_bolt</i>
+        Simulations
+      </div></a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <div class="section">
+      <div class="row">
+        <!-- <h4>Pi to Altair</h4> -->
+
+        <div class="col s12 m12">
+          <div class="card">
+            <div class="card-image">
+              <img src="img/wolf-sim.png">
+            </div>
+            <div class="card-content">
+              <!-- <span class="card-title activator grey-text text-darken-4">1B TCP</span>
+              <p>Average: 0.291620 ms/packet</p> -->
+            </div>
+          </div>
+        </div>  
+
+        <div class="col s12 m12">
+          <div class="card">
+            <div class="card-image">
+              <img src="img/desktop-sim.png">
+            </div>
+            <div class="card-content">
+              <!-- <span class="card-title activator grey-text text-darken-4">64B TCP</span>
+              <p>Average: 0.251161 ms/packet</p> -->
+            </div>
+          </div>
+        </div>    
+
+      </div>
+    </div>
+
+      </div>
+    </div>
+  
+  </div> <!-- Container End -->
+
+  <footer class="page-footer red darken-2">    <div class="footer-copyright">
+    <div class="container">
+
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Benchmark Explanation</h5>
+            <p class="grey-text text-lighten-4">
+              This simulation is meant to show performace of the custom concurrent hashmap in 
+              an a micro application. The simulation runs a set of buyers/sellers which all "buy"
+              and "sell". Essentialy, there are a set of threads that insert, delete, and modify
+              the contents of a concurrent hashmap. The simulation is benchmarked against the built
+              in benchmark with 5 warmup iterations, and 15 test iterations. The Wolf server had a
+              higher compute copacity so it was given 32 Buyer/Seller instances, and the desktop was
+              given 16.
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="../js/materialize.js"></script>
+  <script src="../js/init.js"></script>
+
+  </body>
+</html>

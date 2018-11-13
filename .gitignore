@@ -101,3 +101,8 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/gradle,intellij
+
+### WEB ###
+web/css/**
+web/fonts/**
+web/js/**

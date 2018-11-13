@@ -1,0 +1,5 @@
+"Benchmark","Mode","Threads","Samples","Score","Score Error (99.9%)","Unit"
+"test.CustomerBenchmarks.builtInCUstomer","thrpt",1,15,0.004743,0.001884,"ops/ms"
+"test.CustomerBenchmarks.myCustomer","thrpt",1,15,0.005312,0.001957,"ops/ms"
+"test.CustomerBenchmarks.builtInCUstomer","avgt",1,15,243.343642,116.854764,"ms/op"
+"test.CustomerBenchmarks.myCustomer","avgt",1,15,268.536710,131.475937,"ms/op"

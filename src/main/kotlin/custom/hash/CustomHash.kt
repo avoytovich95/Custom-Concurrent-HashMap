@@ -11,12 +11,12 @@ class CustomHash<K>{
   @Volatile var size = 0
 
   private fun acquire(k: K) {
-    val i = k!!.hashCode() % 16
+    val i = (k.hashCode() shr 4) % 16
     locks[i].lock()
   }
 
   private fun release(k: K) {
-    val i = k!!.hashCode() % 16
+    val i = (k.hashCode() shr 4) % 16
     locks[i].unlock()
   }
 
@@ -202,13 +202,11 @@ class CustomHash<K>{
             e.v -= v
             0
           }
-
+          e.next == null -> return null
           e.next != null -> {
             prev = e
             e = e.next
           }
-
-          e.next == null -> return null
         }
       }
 

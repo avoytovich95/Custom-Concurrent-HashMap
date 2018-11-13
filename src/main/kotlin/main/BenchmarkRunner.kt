@@ -11,7 +11,7 @@ object BenchmarkRunner {
   @JvmStatic
   fun main(args: Array<String>) {
     val opts = OptionsBuilder()
-      .include(".*")
+      .include(".*CustomerBenchmarks.*")
       .warmupIterations(5)
       .measurementIterations(15)
       .forks(1)

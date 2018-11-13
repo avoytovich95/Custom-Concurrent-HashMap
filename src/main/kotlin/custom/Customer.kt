@@ -47,13 +47,11 @@ class Customer(private val exchange: CustomHash<Items>, val name: String): Runna
   }
 
   private fun buy() {
-    println("$name: Buying $quantity of $buying, $tries tries")
     if (tries < 4) {
 
       val r = exchange.decrement(buying, quantity)
 
       if (r != null) {
-        println("$name: Bought $quantity of $buying, $tries tries")
         if (r == 0) {
           items.merge(buying, quantity, Integer::sum)
           resetBuying()
@@ -80,8 +78,6 @@ class Customer(private val exchange: CustomHash<Items>, val name: String): Runna
   private fun sell() {
     val item = getRandomItem()
     val quantity = getRandomQuantity(item)
-
-    println("$name: Selling $quantity of $item")
 
     exchange.increment(item, quantity)
 

@@ -8,8 +8,8 @@ import java.util.concurrent.ThreadLocalRandom
 class BuiltInCustomer(private val exchange: ConcurrentHashMap<Items, Int>, val name: String): Runnable {
 
   private val items = HashMap<Items, Int>()
-  private val runs = 1000
   private var state = PlayerState.SELLING
+  private val runs = 1000
 
   private val itemTotal = Items.values().size
 
@@ -39,7 +39,6 @@ class BuiltInCustomer(private val exchange: ConcurrentHashMap<Items, Int>, val n
   }
 
   private fun buy() {
-    println("$name: Buying $quantity of $buying, $tries tries")
     if (tries < 4) {
 
       var r: Int? = null
@@ -54,7 +53,6 @@ class BuiltInCustomer(private val exchange: ConcurrentHashMap<Items, Int>, val n
       }
 
       if (r != null) {
-        println("$name: Bought $quantity of $buying, $tries tries")
         if (r == 0) {
           items.merge(buying, quantity, Integer::sum)
           resetBuying()
@@ -81,8 +79,6 @@ class BuiltInCustomer(private val exchange: ConcurrentHashMap<Items, Int>, val n
   private fun sell() {
     val item = getRandomItem()
     val quantity = getRandomQuantity(item)
-
-    println("$name: Selling $quantity of $item")
 
     exchange.merge(item, quantity, Integer::sum)
 
@@ -111,16 +107,4 @@ class BuiltInCustomer(private val exchange: ConcurrentHashMap<Items, Int>, val n
     return quantity
   }
 
-}
-
-fun main(args: Array<String>) {
-  val exchange = ConcurrentHashMap<Items, Int>()
-  Thread(BuiltInCustomer(exchange, "Jon")).start()
-  Thread(BuiltInCustomer(exchange, "Alex")).start()
-  Thread(BuiltInCustomer(exchange, "Anthony")).start()
-  Thread(BuiltInCustomer(exchange, "Mike")).start()
-//  while (true) {
-//    Thread.sleep(1000)
-//    println()
-//  }
 }
